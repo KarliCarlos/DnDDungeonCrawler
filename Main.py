@@ -12,11 +12,12 @@ class Main:
 
         self.EDITMODE = True
         self.SIZE = 1024
+        self.SIDEPANELSIZE = 500
         self.MAPSIZE = 10
 
 ####### VARIABLES #######
 
-        self.screen = pg.display.set_mode((self.SIZE, self.SIZE))
+        self.screen = pg.display.set_mode((self.SIZE + self.SIDEPANELSIZE, self.SIZE))
         self.clock = pg.time.Clock()
 
         self.types = [t for t in os.listdir(os.path.join('Tiles'))]
@@ -29,10 +30,11 @@ class Main:
 
 ### FUNCTIONS ###
 
-    def reloadTileImg(self):
+    def reloadTileImg(self, save = True):
         if not self.loadedTiles[self.currentType[0]][self.currentType[1]]: #Wurde das Bild schonmal geladen?
             self.loadedTiles[self.currentType[0]][self.currentType[1]] = pg.transform.scale(pg.image.load(os.path.join('Tiles', self.types[self.currentType[0]], str(self.currentType[1] + 1) + '.jpg')), (1024, 1024)) #Bild wird geladen
-        self.map[self.coords[1]][self.coords[0]] = (self.currentType[0], self.currentType[1])
+        if save:
+            self.map[self.coords[1]][self.coords[0]] = (self.currentType[0], self.currentType[1]) #Img Daten werden in map gespeichert
 
     def drawCurrentTile(self):
         if not self.map[self.coords[1]][self.coords[0]]: #Wenn noch kein Tile vorhanden -> Neues Tile
@@ -59,8 +61,7 @@ class Main:
             for j in i:
                 if j:
                     self.currentType = j
-                    if not self.loadedTiles[self.currentType[0]][self.currentType[1]]:
-                        self.loadedTiles[self.currentType[0]][self.currentType[1]] = pg.transform.scale(pg.image.load(os.path.join('Tiles', self.types[self.currentType[0]], str(self.currentType[1] + 1) + '.jpg')), (1024, 1024)) #Bild wird geladen
+                    self.reloadTileImg(False)
 
 
 ### GAME LOOP ###
@@ -127,6 +128,8 @@ class Main:
 
                         if e.key == pg.K_l:
                             self.load()
+
+            self.screen.fill('#0c0908')
 
             self.drawCurrentTile()        
 
