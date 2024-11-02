@@ -1,4 +1,5 @@
 # DnDDungeonCrawler
+Made in cooperation with my [friend](https://github.com/miki2017milan)
 This little programm lets you create tilebased dungeons for your TTRPG.
 I have used the Stone Assets of [Adventurica's](https://www.kickstarter.com/projects/840112518/dungeon-builders-toolkit-modular-maps-for-ttrpgs-and-dandd/creator_bio) [Dungeon Builders Toolkit](https://www.kickstarter.com/projects/840112518/dungeon-builders-toolkit-modular-maps-for-ttrpgs-and-dandd/description) but you can use any images you want, as long as they are in a 1:1 ratio ;)
 
@@ -16,7 +17,8 @@ pip install pygame
 ```
 
 ### Asset Configuration
-1. Sort all images by how many entrances each tile has in different folders. E.g:
+1. Create a folder named Tiles in the same folder as the .py files
+2. Sort all images by how many entrances each tile has in different folders. E.g:
 ```
 ├───Tiles
 │   ├───OneWay
@@ -25,7 +27,7 @@ pip install pygame
 │   ├───FourWay
 │   └───Hallway
 ```
-2. Rename all files in each folder to a descending number.
+3. Rename all files in each folder to a descending number.
 ```
 ├───OneWay
 │   ├───1.jpg

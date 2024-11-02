@@ -45,7 +45,7 @@ class Main:
     def reloadTileImg(self, save = True):
         if not self.loadedTiles[self.currentType[0]][self.currentType[1]]: # Wurde das Bild schonmal geladen?
             size = self.screen.get_height()
-            self.loadedTiles[self.currentType[0]][self.currentType[1]] = pg.transform.scale(pg.image.load(os.path.join('Tiles', self.types[self.currentType[0]], str(self.currentType[1] + 1) + '.jpg')), (size, size)) #Bild wird geladen
+            self.loadedTiles[self.currentType[0]][self.currentType[1]] = pg.transform.scale(pg.image.load(os.path.join('Tiles', self.types[self.currentType[0]], str(self.currentType[1] + 1) + FileExtension)), (size, size)) #Bild wird geladen
         if save:
             self.map[self.coords[1]][self.coords[0]] = [self.currentType[0], self.currentType[1]] # Img Daten werden in map gespeichert
 
