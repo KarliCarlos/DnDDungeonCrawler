@@ -1,7 +1,11 @@
+#############################################
+# ONLY EDIT IF YOU KNOW WHAT YOU ARE DOING! #
+#############################################
 import pygame as pg
 import os
 from tkinter import filedialog
 import json
+from Config import *
 
 pg.init()
 
@@ -10,12 +14,12 @@ class Main:
 
 ####### CONFIG #######
 
-        self.SIZE = 1024
+        self.SIZE = WindowSize
         self.SIDEPANELSIZE = 500
         self.MINIMAPMARGIN = 50
-        self.MAPSIZE = 11
-        self.STARTCOORDS = None # default mid, if you want to change it: [x-Value, y-Value]
-        self.EDITMODE = True
+        self.MAPSIZE = MapSize
+        self.STARTCOORDS = [int(self.MAPSIZE/2), int(self.MAPSIZE/2)]
+        self.EDITMODE = EditMode
 
 ####### VARIABLES #######
 
@@ -32,10 +36,7 @@ class Main:
         self.currentType = [0, 0]
 
         self.map = [[None for _ in range(self.MAPSIZE)] for _ in range(self.MAPSIZE)]
-        self.coords = [int(self.MAPSIZE/2), int(self.MAPSIZE/2)]
-        if self.STARTCOORDS:
-            self.coods = self.STARTCOORDS.copy()
-        self.STARTCOORDS = self.coords.copy()
+        self.coords = self.STARTCOORDS.copy()
 
         self.font = pg.font.SysFont("Consolas", 30)
 
@@ -84,14 +85,16 @@ class Main:
         file = filedialog.asksaveasfile(mode='w', defaultextension='.json')
         if not file:
             return
-        json.dump(self.map, file)
+        json.dump([self.STARTCOORDS, self.map], file)
         file.close()
 
     def load(self):
         file = filedialog.askopenfile(defaultextension='.json')
         if not file:
             return
-        self.map = json.load(file)
+        data = json.load(file)
+        self.map = data[1]
+        self.STARTCOORDS = data[0]
         file.close()
 
         for i in self.map:
@@ -110,7 +113,7 @@ class Main:
 
     def drawInfo(self):
         lineSize = 40
-        startY = self.SIZE - 300
+        startY = self.SIZE - 340
         self.screen.blit(self.text(f"Current Tile: {self.types[self.currentType[0]]} | {self.currentType[1]}"), (self.SIZE + self.MINIMAPMARGIN, self.SIZE / 2))
 
         self.screen.blit(self.text("Hotkeys:"), (self.SIZE + self.MINIMAPMARGIN, startY))
@@ -120,6 +123,7 @@ class Main:
         self.screen.blit(self.text("ENTER Save"), (self.SIZE + self.MINIMAPMARGIN, startY + lineSize * 4))
         self.screen.blit(self.text("L     Load"), (self.SIZE + self.MINIMAPMARGIN, startY + lineSize * 5))
         self.screen.blit(self.text("DEL   Delete Tile"), (self.SIZE + self.MINIMAPMARGIN, startY + lineSize * 6))
+        self.screen.blit(self.text("F     Set Starting-Point"), (self.SIZE + self.MINIMAPMARGIN, startY + lineSize * 7))
 
 ### GAME LOOP ###
 
@@ -195,6 +199,8 @@ class Main:
                         if e.key == pg.K_DELETE:
                             self.delete()
 
+                        if e.key == pg.K_f:
+                            self.STARTCOORDS = self.coords.copy()
             self.screen.fill('#0c0908')
 
             self.drawCurrentTile()
