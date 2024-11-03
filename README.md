@@ -45,9 +45,9 @@ The Config has comments which should explain everything ;)
 ## Starting Guide
 
 1. To start the programm, you first have to open the Terminal
-2. In the Terminal, change the directory to the folder where you have saved the Main.py, Config.py and Tiles folder. (Replace <path> with the path to your folder. E.g. C:\Users\KarliCarlos\Documents\DnDDungeonCrawler
+2. In the Terminal, change the directory to the folder where you have saved the Main.py, Config.py and Tiles folder. (Replace path with the path to your folder. E.g. C:\Users\KarliCarlos\Documents\DnDDungeonCrawler
 ```bash
-cd <path>
+cd path
 ```
 3. Run Main.py
 ```bash
