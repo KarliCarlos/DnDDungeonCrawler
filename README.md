@@ -39,7 +39,7 @@ pip install pygame
 ...
 ```
 
-### Conifg
+### Config
 The Config has comments which should explain everything ;)
 
 ## Starting Guide
