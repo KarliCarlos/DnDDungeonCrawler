@@ -55,3 +55,7 @@ python Main.py
 ```
 
 Have Fun!
+
+## ToDo
+- Turning Tiles
+- Hotkey for toggling editmode
